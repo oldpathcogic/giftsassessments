@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spiritual Gifts Assessment</title>
+    <meta name="description" content="Spiritual Gifts Assessment based on Romans 12:6-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+      * { box-sizing: border-box; }
+      body { margin: 0; }
+      button, input { font: inherit; }
+      @media (max-width: 700px) {
+        h1 { font-size: 32px !important; }
+        h2 { font-size: 22px !important; }
+        div[style*="padding: 60px 50px"],
+        div[style*="padding: 50px"] { padding: 28px 20px !important; }
+        div[style*="grid-template-columns: 1fr 1fr"] { grid-template-columns: 1fr !important; }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel" src="./app.jsx"></script>
+  </body>
+</html>
