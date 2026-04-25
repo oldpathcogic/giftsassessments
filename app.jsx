@@ -1,7 +1,6 @@
 const { useState } = React;
 
-const GOOGLE_SCRIPT_WEB_APP_URL = 'PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE';
-
+const GOOGLE_SCRIPT_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbx1234567890abcdef/exec';
 function SimpleIcon({ symbol, size = 24, color = 'currentColor' }) {
   return (
     <span
@@ -1098,7 +1097,7 @@ function SpiritualGiftsAssessment() {
             fontSize: '15px'
           }}>
             <p style={{ marginBottom: '8px' }}>
-              Based on Romans 12:6-8 • Distributed through Pastoral Care, Inc.
+              Based on Romans 12:6-8
             </p>
             <p>
               Your results have been saved in this browser. A backend is required for administrator access across devices.
