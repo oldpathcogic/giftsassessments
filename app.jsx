@@ -1,5 +1,7 @@
 const { useState } = React;
 
+const GOOGLE_SCRIPT_WEB_APP_URL = 'PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE';
+
 function SimpleIcon({ symbol, size = 24, color = 'currentColor' }) {
   return (
     <span
@@ -303,24 +305,52 @@ function SpiritualGiftsAssessment() {
     saveResults(sortedGifts);
   };
 
-  const saveResults = (sortedGifts) => {
-    try {
-      const timestamp = new Date().toISOString();
-      const resultData = {
-        name,
-        timestamp,
-        gifts: sortedGifts,
-        primaryGift: sortedGifts[0].gift,
-        secondaryGift: sortedGifts[1].gift,
-        tertiaryGift: sortedGifts[2].gift
-      };
+  const saveResults = async (sortedGifts) => {
+    const timestamp = new Date().toISOString();
+    const scores = sortedGifts.reduce((acc, item) => {
+      acc[item.gift] = item.score;
+      return acc;
+    }, {});
 
+    const resultData = {
+      name: name.trim(),
+      timestamp,
+      primaryGift: sortedGifts[0]?.gift || '',
+      primaryScore: sortedGifts[0]?.score || 0,
+      secondaryGift: sortedGifts[1]?.gift || '',
+      secondaryScore: sortedGifts[1]?.score || 0,
+      tertiaryGift: sortedGifts[2]?.gift || '',
+      tertiaryScore: sortedGifts[2]?.score || 0,
+      scores,
+      rankedGifts: sortedGifts,
+      answers
+    };
+
+    try {
       const existingResults = JSON.parse(localStorage.getItem('spiritualGiftAssessments') || '[]');
       existingResults.push(resultData);
       localStorage.setItem('spiritualGiftAssessments', JSON.stringify(existingResults));
       localStorage.setItem('latestSpiritualGiftAssessment', JSON.stringify(resultData));
     } catch (error) {
-      console.error('Failed to save results:', error);
+      console.error('Failed to save local backup:', error);
+    }
+
+    if (!GOOGLE_SCRIPT_WEB_APP_URL || GOOGLE_SCRIPT_WEB_APP_URL.includes('PASTE_YOUR')) {
+      console.warn('Google Apps Script Web App URL has not been configured.');
+      return;
+    }
+
+    try {
+      await fetch(GOOGLE_SCRIPT_WEB_APP_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'text/plain;charset=utf-8'
+        },
+        body: JSON.stringify(resultData)
+      });
+    } catch (error) {
+      console.error('Failed to send results to Google Sheet:', error);
     }
   };
 
