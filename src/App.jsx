@@ -3,7 +3,8 @@ import SpiritualGiftsAssessment from './components/SpiritualGiftsAssessment.jsx'
 import AssessmentResultsViewer from './components/AssessmentResultsViewer.jsx';
 
 export default function App() {
-  const isAdminView = window.location.pathname === '/admin';
+  const path = window.location.pathname.replace(/\/+$/, '');
+  const isAdminView = path.endsWith('/admin');
 
   return isAdminView ? <AssessmentResultsViewer /> : <SpiritualGiftsAssessment />;
 }
